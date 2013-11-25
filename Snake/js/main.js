@@ -22,7 +22,6 @@
 	/**
 	 * Item colors
 	 */
-	var PAGE_BACKGROUND_COLOR = "WHITE";
 	var CANVAS_BACKGROUND_COLOR = "E3E7FF";
 	var SNAKE_COLOR = "CE0018";
 	var FOOD_COLOR = "FFA200";
