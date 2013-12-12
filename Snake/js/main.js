@@ -5,7 +5,7 @@
  * @license MIT License (MIT), http://opensource.org/licenses/MIT
  * @author Daniel Sebastian Iliescu, http://dansil.net
  * @created 2013-09-01
- * @updated 2013-09-06
+ * @updated 2013-12-12
  */
 
 (function() {
@@ -71,11 +71,9 @@
 
 	var gameInterval;
 
-	$(document).ready(init);
-	$(document).ready(createStartMessage);
-	$(window).resize(init);
-	$(window).resize(createStartMessage);
-	$(document).keydown(function(event) {
+	window.onload = init;
+	window.onresize = init;
+	window.onkeydown = function(event) {
 		event.preventDefault();
 		var keyPressed = event.which;
 		var direction = currentDirection;
@@ -113,24 +111,33 @@
 		if (!gameInterval && endGame) {
 			init();
 		} else if (!gameInterval) {
+			var startMessage = document.getElementById("start-message");
+
 			gameInterval = setInterval(update, REFRESH_RATE);
-			$("#start-message").remove();
+
+			startMessage.parentNode.removeChild(startMessage);
 		}
-	});
+	}
 
 	/**
 	 * Initializes the game state.
 	 */
 	function init() {
-		var snakeCanvas = $("#snake-canvas");
-		var gameContext = snakeCanvas[0].getContext("2d");
+		var startMessage = document.getElementById("start-message");
+		var endMessage = document.getElementById("end-message");
+		var snakeCanvas = document.getElementById("snake-canvas");
+		var gameContext = snakeCanvas.getContext("2d");
 		
 		currentDirection = RIGHT;
 		keyActive = false;
 		endGame = false;
 
-		$("#end-message").remove();
-		$("#start-message").remove();
+		if (startMessage) {
+			startMessage.parentNode.removeChild(startMessage);
+		} else if (endMessage) {
+			endMessage.parentNode.removeChild(endMessage);
+		}
+
 		createGameInfo();
 
 		initBoard();
@@ -146,17 +153,19 @@
 			clearInterval(gameInterval);
 			gameInterval = null;
 		}
+
+		createStartMessage();
 	}
 
 	/**
 	 * Initializes the game canvas (board).
 	 */
 	function initBoard() {
-		var snakeCanvas = $("#snake-canvas");
-		var gameContext = snakeCanvas[0].getContext("2d");
+		var snakeCanvas = document.getElementById("snake-canvas");
+		var gameContext = snakeCanvas.getContext("2d");
 
-		boardWidth = Math.round($(window).width()* 0.9);
-		boardHeight = Math.round($(window).height()* 0.95 - $("header").height() - $("#game-info").height() - $("footer").height());
+		boardWidth = Math.round(window.innerWidth * 0.9);
+		boardHeight = Math.round(window.innerHeight * 0.95 - document.getElementsByTagName("header")[0].clientHeight - document.getElementById("game-info").clientHeight - document.getElementsByTagName("footer")[0].clientHeight);
 
 		horizontalTiles = Math.round(boardWidth / TILE_SIZE);
 		verticalTiles = Math.round(boardHeight / TILE_SIZE);
@@ -171,13 +180,13 @@
 			boardHeight = TILE_SIZE * 4;
 		}
 
-		snakeCanvas.prop("width", boardWidth);
-		snakeCanvas.prop("height", boardHeight);
+		snakeCanvas.setAttribute("width", boardWidth + "px");
+		snakeCanvas.setAttribute("height", boardHeight + "px");
 
-		snakeCanvas.css("width", boardWidth);
-		snakeCanvas.css("height", boardHeight);
-		snakeCanvas.css("min-width", TILE_SIZE * 4);
-		snakeCanvas.css("min-height", TILE_SIZE * 4);
+		snakeCanvas.style.width = boardWidth + "px";
+		snakeCanvas.style.height = boardHeight + "px";
+		snakeCanvas.style.minWidth = TILE_SIZE * 4  + "px";
+		snakeCanvas.style.minHeight = TILE_SIZE * 4  + "px";
 
 		gameContext.fillStyle = CANVAS_BACKGROUND_COLOR;
 		gameContext.fillRect(0, 0, boardWidth, boardHeight);
@@ -203,7 +212,6 @@
 			gameInterval = null;
 
 			endGame = true;
-			$("input[name=speed]").prop("disabled", true);
 
 			createEndMessage();
 		}
@@ -224,8 +232,8 @@
 	 * Draws a tile for the respective object.
 	 */
 	Tile.prototype.drawTile = function() {
-		var snakeCanvas = $("#snake-canvas");
-		var gameContext = snakeCanvas[0].getContext("2d");
+		var snakeCanvas = document.getElementById("snake-canvas");
+		var gameContext = snakeCanvas.getContext("2d");
 
 		gameContext.fillStyle = this.color;
 		gameContext.fillRect(this.left, this.top, TILE_SIZE, TILE_SIZE);
@@ -238,46 +246,46 @@
 	 * Creates a welcome message.
 	 */
 	function createStartMessage() {
-		var startMessage = $(document.createElement("div"));
+		var startMessage = document.createElement("div");
 
-		startMessage.prop("id", "start-message");
-		startMessage.html("Press any key to move the snake. Use the arrow keys to change directions.");
+		startMessage.setAttribute("id", "start-message");
+		startMessage.innerHTML = "Press any key to move the snake. Use the arrow keys to change directions.";
 
-		$(document.body).append(startMessage);
+		document.body.appendChild(startMessage);
 	}
 
 	/**
 	 * Creates an end game message.
 	 */
 	function createEndMessage() {
-		var endMessage = $(document.createElement("div"));
+		var endMessage = document.createElement("div");
 
-		endMessage.prop("id", "end-message");
-		endMessage.html("You died! Press any key to restart.");
+		endMessage.setAttribute("id", "end-message");
+		endMessage.innerHTML = "You died! Press any key to restart.";
 
-		$(document.body).append(endMessage);
+		document.body.appendChild(endMessage);
 	}
 
 	/**
 	 * Creates the game information panel.
 	 */
 	function createGameInfo() {
-		var gameInfo = $("#game-info");
-		var snakeLengthInfo = $(document.createElement("span"));
+		var gameInfo = document.getElementById("game-info");
+		var snakeLengthInfo = document.createElement("span");
 
-		gameInfo.empty();
-		snakeLengthInfo.html("Snake length: " + snake.length);
+		gameInfo.innerHTML = "";
+		snakeLengthInfo.innerHTML = "Snake length: " + snake.length;
 
-		gameInfo.append(snakeLengthInfo);
+		gameInfo.appendChild(snakeLengthInfo);
 	}
 
 	/**
 	 * Updates the game information panel.
 	 */
 	function updateGameInfo() {
-		var gameInfo = $("#game-info");
+		var gameInfo = document.getElementById("game-info");
 
-		gameInfo.html("Snake length: " + snake.length);
+		gameInfo.innerHTML = "Snake length: " + snake.length;
 	}
 
 	/**
