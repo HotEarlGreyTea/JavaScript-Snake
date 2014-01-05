@@ -1,11 +1,11 @@
 /**
  * JavaScript Snake Game, main.js
  *
- * @version 1.0.0
+ * @version 1.0.6
  * @license MIT License (MIT), http://opensource.org/licenses/MIT
  * @author Daniel Sebastian Iliescu, http://dansil.net
- * @created 2013-09-01
- * @updated 2013-12-12
+ * @created 01-09-2013
+ * @updated 04-01-2014
  */
 
 (function() {
@@ -108,14 +108,14 @@
 			}
 		}
 
-		if (!gameInterval && endGame) {
+		if (endGame) {
 			init();
 		} else if (!gameInterval) {
-			var startMessage = document.getElementById("start-message");
+			var gameMessage = document.getElementById("game-message");
 
 			gameInterval = setInterval(update, REFRESH_RATE);
 
-			startMessage.parentNode.removeChild(startMessage);
+			gameMessage.parentNode.removeChild(gameMessage);
 		}
 	}
 
@@ -123,8 +123,7 @@
 	 * Initializes the game state.
 	 */
 	function init() {
-		var startMessage = document.getElementById("start-message");
-		var endMessage = document.getElementById("end-message");
+		var gameMessage = document.getElementById("game-message");
 		var snakeCanvas = document.getElementById("snake-canvas");
 		var gameContext = snakeCanvas.getContext("2d");
 		
@@ -132,10 +131,8 @@
 		keyActive = false;
 		endGame = false;
 
-		if (startMessage) {
-			startMessage.parentNode.removeChild(startMessage);
-		} else if (endMessage) {
-			endMessage.parentNode.removeChild(endMessage);
+		if (gameMessage) {
+			gameMessage.parentNode.removeChild(gameMessage);
 		}
 
 		createGameInfo();
@@ -154,7 +151,7 @@
 			gameInterval = null;
 		}
 
-		createStartMessage();
+		createGameMessage("Press any key to move the snake. Use the arrow keys to change directions.");
 	}
 
 	/**
@@ -165,7 +162,11 @@
 		var gameContext = snakeCanvas.getContext("2d");
 
 		boardWidth = Math.round(window.innerWidth * 0.9);
-		boardHeight = Math.round(window.innerHeight * 0.95 - document.getElementsByTagName("header")[0].clientHeight - document.getElementById("game-info").clientHeight - document.getElementsByTagName("footer")[0].clientHeight);
+		boardHeight = Math.round(
+			window.innerHeight * 0.95 
+			- document.getElementsByTagName("header")[0].clientHeight 
+			- document.getElementById("game-info").clientHeight	
+			- document.getElementsByTagName("footer")[0].clientHeight);
 
 		horizontalTiles = Math.round(boardWidth / TILE_SIZE);
 		verticalTiles = Math.round(boardHeight / TILE_SIZE);
@@ -173,20 +174,15 @@
 		boardWidth = TILE_SIZE * horizontalTiles;
 		boardHeight = TILE_SIZE * verticalTiles;
 
-		if (boardWidth < TILE_SIZE * 4) {
-			boardWidth = TILE_SIZE * 4;
+		if (boardWidth < TILE_SIZE * 8) {
+			boardWidth = TILE_SIZE * 8;
 		}
-		if (boardHeight < TILE_SIZE * 4) {
-			boardHeight = TILE_SIZE * 4;
+		if (boardHeight < TILE_SIZE * 8) {
+			boardHeight = TILE_SIZE * 8;
 		}
 
 		snakeCanvas.setAttribute("width", boardWidth + "px");
 		snakeCanvas.setAttribute("height", boardHeight + "px");
-
-		snakeCanvas.style.width = boardWidth + "px";
-		snakeCanvas.style.height = boardHeight + "px";
-		snakeCanvas.style.minWidth = TILE_SIZE * 4  + "px";
-		snakeCanvas.style.minHeight = TILE_SIZE * 4  + "px";
 
 		gameContext.fillStyle = CANVAS_BACKGROUND_COLOR;
 		gameContext.fillRect(0, 0, boardWidth, boardHeight);
@@ -213,7 +209,10 @@
 
 			endGame = true;
 
-			createEndMessage();
+			snake[snake.length - 1].color = HIT_COLOR;
+			snake[snake.length - 1].drawTile();
+
+			createGameMessage("You died! Press any key to restart.");
 		}
 
 		keyActive = false;
@@ -236,34 +235,19 @@
 		var gameContext = snakeCanvas.getContext("2d");
 
 		gameContext.fillStyle = this.color;
-		gameContext.fillRect(this.left, this.top, TILE_SIZE, TILE_SIZE);
-
-		gameContext.strokeStyle = CANVAS_BACKGROUND_COLOR;
-		gameContext.strokeRect(this.left, this.top, TILE_SIZE, TILE_SIZE);
+		gameContext.fillRect(this.left + 1, this.top + 1, TILE_SIZE - 1, TILE_SIZE - 1);
 	};
 
 	/**
-	 * Creates a welcome message.
+	 * Creates a game message.
 	 */
-	function createStartMessage() {
-		var startMessage = document.createElement("div");
+	function createGameMessage(message) {
+		var gameMessage = document.createElement("div");
 
-		startMessage.setAttribute("id", "start-message");
-		startMessage.innerHTML = "Press any key to move the snake. Use the arrow keys to change directions.";
+		gameMessage.setAttribute("id", "game-message");
+		gameMessage.innerHTML = message;
 
-		document.body.appendChild(startMessage);
-	}
-
-	/**
-	 * Creates an end game message.
-	 */
-	function createEndMessage() {
-		var endMessage = document.createElement("div");
-
-		endMessage.setAttribute("id", "end-message");
-		endMessage.innerHTML = "You died! Press any key to restart.";
-
-		document.body.appendChild(endMessage);
+		document.body.appendChild(gameMessage);
 	}
 
 	/**
@@ -379,8 +363,6 @@
 
 		for (var i = 0; i < snake.length - 1; i++) {
 			if ((left == snake[i].left) && (top == snake[i].top)) {
-				snake[i].color = HIT_COLOR;
-				snake[i].drawTile();
 				return false;
 			}
 		}

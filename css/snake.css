@@ -1,11 +1,11 @@
 /**
  * JavaScript Snake Game, snake.css
  *
- * @version 1.0.0
+ * @version 1.0.6
  * @license MIT License (MIT), http://opensource.org/licenses/MIT
  * @author Daniel Sebastian Iliescu, http://dansil.net
- * @created 2013-09-01
- * @updated 2013-09-06
+ * @created 01-09-2013
+ * @updated 04-01-2014
  */
 
 a {
@@ -31,7 +31,7 @@ header, footer {
 	border: 2px solid black;
 }
 
-#start-message, #end-message {
+#game-message {
 	border-radius: 2px;
 }
 
@@ -39,17 +39,17 @@ header, footer {
 	margin-bottom: 0.5%;
 }
 
-#start-message, #end-message {
+#game-message {
 	color: white;
 	position: absolute;
-	left: 40%;
-	right: 40%;
+	left: 35%;
+	right: 35%;
 	top: 40%;
 	padding: 5px;
 	border: 2px solid black;
 	background-color: #191919;
 }
 
-#game-info, #start-message, #end-message {
+#game-info, #game-message {
 	font-weight: normal;
 }
