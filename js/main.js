@@ -4,8 +4,8 @@
  * @version 1.0.6
  * @license MIT License (MIT), http://opensource.org/licenses/MIT
  * @author Daniel Sebastian Iliescu, http://dansil.net
- * @created 01-09-2013
- * @updated 04-01-2014
+ * @created 2013-09-01
+ * @updated 2014-01-04
  */
 
 (function() {
