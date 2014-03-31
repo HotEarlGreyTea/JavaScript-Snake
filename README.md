@@ -14,4 +14,4 @@ updated: `04-01-2014`
 
 Demo
 ------------------
-dansil.net/projects/Snake/snake.html
+To play the game, direct your browser to [dansil.net/projects/Snake/snake.html](dansil.net/projects/Snake/snake.html)
