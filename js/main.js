@@ -22,9 +22,9 @@
 	/**
 	 * Item colors
 	 */
-	var CANVAS_BACKGROUND_COLOR = "E3E7FF";
-	var SNAKE_COLOR = "CE0018";
-	var FOOD_COLOR = "FFA200";
+	var CANVAS_BACKGROUND_COLOR = "#E3E7FF";
+	var SNAKE_COLOR = "#CE0018";
+	var FOOD_COLOR = "#FFA200";
 	var HIT_COLOR = "GREY";
 
 	/**

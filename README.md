@@ -20,4 +20,4 @@ To play the game, direct your browser to [http://dansil.net/projects/Snake/snake
 Known Issues
 ------------------
 
-Black screen in Internet Explorer and Firefox. Only works properly in Chrome.
+None.
