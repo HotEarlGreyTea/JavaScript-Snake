@@ -1,92 +1,101 @@
 /**
- * @author Daniel Sebastian Iliescu, http://dansil.net
- * @license MIT License (MIT), http://opensource.org/licenses/MIT
+ * Daniel Sebastian Iliescu, http://dansil.net
+ * MIT License (MIT), http://opensource.org/licenses/MIT
  */
 
 class Logic
 {
-    constructor()
-    {
-        this.__states =
-        {
-            Start: 0,
-            Play: 1,
-            End: 2
-        }
+	constructor()
+	{
+		this.__states =
+		{
+			Start: 0,
+			Play: 1,
+			End: 2
+		}
 
-        this.__state = this.__states.Start;
+		this.__state = this.__states.Start;
 
-        this.__animation = new Animation();
-        this.__food = new Food();
-	    this.__snake = new Snake();
-    }
+		this.__animation = new Animation();
+		this.__food = new Food();
+		this.__snake = new Snake();
+	}
 
-    initialize( horizontalTiles, verticalTiles )
-    {
-        this.__animation.initialize();
-        this.__food.initialize( horizontalTiles, verticalTiles );
+	initialize( horizontalTiles, verticalTiles )
+	{
+		this.__animation.initialize();
+		this.__food.initialize( horizontalTiles, verticalTiles );
 
-        this.start();
-    }
+		this.start();
+	}
 
-    /**
-     * Sets the game to an initial starting state.
-     */
-    start()
-    {
-        this.__state = this.__states.Start;
+	/**
+	 * Sets the game to an initial starting state.
+	 */
+	start()
+	{
+		this.__state = this.__states.Start;
 
-        this.__food.generate();
+		this.__food.generate();
 		this.__food.draw();
 
-        this.__snake.generate();
+		this.__snake.generate();
 		this.__snake.draw();
-    }
+	}
 
-    /**
-     * Sets the game to a playing state.
-     */
-    play( action )
-    {
-        this.__state = this.__states.Play;
+	/**
+	 * Sets the game to a playing state.
+	 */
+	play( action )
+	{
+		this.__state = this.__states.Play;
 
-        this.__animation.animate( action );
-    }
+		this.__animation.animate( action );
+	}
 
-    /**
-     * Sets the game to a stopped state.
-     */
-    stop()
-    {
-        this.__state = this.__states.End;
+	/**
+	 * Sets the game to a stopped state.
+	 */
+	stop()
+	{
+		this.__state = this.__states.End;
 
-        this.__snake.kill();
-        this.__animation.inanimate();
-    }
+		this.__snake.kill();
+		this.__animation.inanimate();
+	}
 
-    started()
-    {
-        return ( this.__state === this.__states.Start );
-    }
+	/**
+	 * Checks to see if the game is in the start state.
+	 */
+	started()
+	{
+		return ( this.__state === this.__states.Start );
+	}
 
-    playing()
-    {
-        return ( this.__state === this.__states.Play );
-    }
+	/**
+	 * Checks to see if the game is in the playing state.
+	 */
+	playing()
+	{
+		return ( this.__state === this.__states.Play );
+	}
 
-    stopped()
-    {
-        return ( this.__state === this.__states.End );
-    }
+	/**
+	 * Checks to see if the game is in the stopped state.
+	 */
+	stopped()
+	{
+		return ( this.__state === this.__states.End );
+	}
 
-    /**
-     * Updates the game's logic.
-     */
-    update( currentDirection, width, height )
-    {
-        const moved = this.__snake.move( currentDirection, width, height );
+	/**
+	 * Updates the game's logic.
+	 */
+	update( currentDirection, width, height )
+	{
+		const moved = this.__snake.move( currentDirection, width, height );
 
-        if ( moved )
+		if ( moved )
 		{
 			this.__snake.eats( this.__food );
 
@@ -98,16 +107,19 @@ class Logic
 			this.__food.draw();
 			this.__snake.draw();
 		}
-        else
-        {
-            this.stop();
-        }
+		else
+		{
+			this.stop();
+		}
 
-        return moved;
-    }
+		return moved;
+	}
 
-    get score()
-    {
-        return this.__snake.length;
-    }
+	/**
+	 * Gets the game score which is determined by the snake's length.
+	 */
+	get score()
+	{
+		return this.__snake.length;
+	}
 }

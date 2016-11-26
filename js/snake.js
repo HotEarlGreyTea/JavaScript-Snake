@@ -1,18 +1,18 @@
 /**
- * @author Daniel Sebastian Iliescu, http://dansil.net
- * @license MIT License (MIT), http://opensource.org/licenses/MIT
+ * Daniel Sebastian Iliescu, http://dansil.net
+ * MIT License (MIT), http://opensource.org/licenses/MIT
  */
 
 class Snake extends Tiles
 {
-    constructor()
-    {
+	constructor()
+	{
 		super();
 
-        this.growthIncrement = 5;
-        this.pendingGrowth = 0;
+		this.growthIncrement = 5;
+		this.pendingGrowth = 0;
 		this.color = "#CE0018";
-    }
+	}
 
 	generate()
 	{
@@ -21,7 +21,7 @@ class Snake extends Tiles
 		const initialSnakeLength = 1;
 
 		for ( let idx = 0; idx < initialSnakeLength; idx++ )
-        {
+		{
 			const multiplier = idx + 1;
 			const left = Tile.size() * multiplier;
 			const top = Tile.size() * multiplier;
@@ -30,16 +30,16 @@ class Snake extends Tiles
 		}
 	}
 
-    /**
+	/**
 	 * Moves the snake in a direction.
 	 * Checks both border collisions as well as self ones and returns true if there were none.
 	 */
-    move( direction, boardWidth, boardHeight )
-    {
-        var LEFT = 37;
-        var UP = 38;
-        var RIGHT = 39;
-        var DOWN = 40;
+	move( direction, boardWidth, boardHeight )
+	{
+		var LEFT = 37;
+		var UP = 38;
+		var RIGHT = 39;
+		var DOWN = 40;
 
 		var left = this.back.left;
 		var top = this.back.top;
@@ -117,7 +117,7 @@ class Snake extends Tiles
 	}
 
 	moveBody( left, top )
-    {
+	{
 		this.front.color = Board.Color();
 		this.front.draw();
 		this.front.color = this.color;
@@ -126,7 +126,7 @@ class Snake extends Tiles
 
 		this.back.left = left;
 		this.back.top = top;
-    }
+	}
 
 	kill()
 	{

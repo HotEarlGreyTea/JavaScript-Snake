@@ -1,18 +1,18 @@
 /**
- * @author Daniel Sebastian Iliescu, http://dansil.net
- * @license MIT License (MIT), http://opensource.org/licenses/MIT
+ * Daniel Sebastian Iliescu, http://dansil.net
+ * MIT License (MIT), http://opensource.org/licenses/MIT
  */
 
 class Board
 {
-    constructor()
-    {
+	constructor()
+	{
 		this.__horizontalTiles = 0;
 		this.__verticalTiles = 0;
 
 		this.__width = 0;
 		this.__height = 0;
-    }
+	}
 
 	initialize()
 	{

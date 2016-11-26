@@ -1,45 +1,49 @@
 /**
- * JavaScript Snake Game, snake.css
- *
- * @version 1.0.6
- * @license MIT License (MIT), http://opensource.org/licenses/MIT
- * @author Daniel Sebastian Iliescu, http://dansil.net
- * @created 2013-09-01
- * @updated 2014-01-04
+ * Daniel Sebastian Iliescu, http://dansil.net
+ * MIT License (MIT), http://opensource.org/licenses/MIT
  */
 
-a {
+a
+{
 	color: #7C44D7;
 	text-decoration: underline;
 }
 
-a:hover {
+a:hover
+{
 	color: #35068B;
 }
 
-body {
+body
+{
 	width: 100%;
 	height: 100%;
 	text-align: center;
 }
 
-header, footer {
+header,
+footer
+{
 	overflow: auto;
 }
 
-#snake-canvas {
+#snake-canvas
+{
 	border: 2px solid black;
 }
 
-#game-message {
+#game-message
+{
 	border-radius: 2px;
 }
 
-#game-info {
+#game-info
+{
 	margin-bottom: 0.5%;
 }
 
-#game-message {
+#game-message
+{
 	color: white;
 	position: absolute;
 	left: 35%;
@@ -50,6 +54,8 @@ header, footer {
 	background-color: #191919;
 }
 
-#game-info, #game-message {
+#game-info,
+#game-message
+{
 	font-weight: normal;
 }

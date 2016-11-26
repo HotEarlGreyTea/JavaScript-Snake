@@ -1,6 +1,6 @@
 /**
- * @author Daniel Sebastian Iliescu, http://dansil.net
- * @license MIT License (MIT), http://opensource.org/licenses/MIT
+ * Daniel Sebastian Iliescu, http://dansil.net
+ * MIT License (MIT), http://opensource.org/licenses/MIT
  */
 
 ( function()
