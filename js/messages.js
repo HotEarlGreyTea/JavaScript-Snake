@@ -10,74 +10,118 @@ class Messages
 		this.__score = 0;
 	}
 
+	/**
+	 * Initializes the starting game message.
+	 */
 	initialize( value )
 	{
 		this.clear();
-		this.createGameInfo();
-
+		this.__createInformationPanel();
 		this.update( value );
-
-		this.show( "Press any key to move the snake. Use the arrow keys to change directions." );
-	}
-
-	update( value )
-	{
-		this.__score = value;
-		this.updateGameInfo();
+		this.create( "Press any key to move the snake. Use the arrow keys to change directions." );
 	}
 
 	/**
-	 * Creates a game message.
+	 * Displays the ending game message.
+	 */
+	end()
+	{
+		this.create( "You died! Press any key to restart." );
+	}
+
+	/**
+	 * Updates the score.
+	 */
+	update( value )
+	{
+		this.__score = value;
+		this.__updateInformationPanel( this.informationPanel );
+	}
+
+	/**
+	 * Creates a message.
 	 */
 	create( message )
 	{
-		var gameMessage = document.createElement("div");
+		const gameMessage = document.createElement( "div" );
 
-		gameMessage.setAttribute("id", "game-message");
+		gameMessage.setAttribute( "class", this.gameMessagesQualifiedName );
 		gameMessage.innerHTML = message;
 
-		document.body.appendChild(gameMessage);
+		document.body.appendChild( gameMessage );
 	}
 
-	end()
-	{
-		this.show("You died! Press any key to restart.");
-	}
-
-	show( message )
-	{
-		this.create( message );
-	}
-
+	/**
+	 * Clear all messages.
+	 */
 	clear()
 	{
-		while ( document.getElementById("game-message") )
+		for ( const element of this.gameMessages )
 		{
-			document.getElementById("game-message").parentNode.removeChild(document.getElementById("game-message"));
+			this.__removeItem( element );
 		}
 	}
 
 	/**
-	 * Creates the game information panel.
+	 * Creates the score panel.
 	 */
-	createGameInfo()
+	__createInformationPanel()
 	{
-		var gameInfo = document.getElementById("game-info");
-		var snakeLengthInfo = document.createElement("span");
+		const gameInfo = document.getElementById( this.gameInformationQualifiedName );
+		const lengthInfo = document.createElement( "span" );
 
-		gameInfo.innerHTML = "";
-		snakeLengthInfo.innerHTML = "Snake length: " + this.__score;
-
-		gameInfo.appendChild(snakeLengthInfo);
+		this.__updateInformationPanel( lengthInfo );
+		gameInfo.appendChild( lengthInfo );
 	}
 
 	/**
-	 * Updates the game information panel.
+	 * Updates the score panel.
 	 */
-	updateGameInfo()
+	__updateInformationPanel( panel )
 	{
-		var gameInfo = document.getElementById("game-info");
+		panel.innerHTML = "Snake length: " + this.__score;
+	}
 
-		gameInfo.innerHTML = "Snake length: " + this.__score;
+	/**
+	 * Removes an element from the DOM.
+	 */
+	__removeItem( item )
+	{
+		if ( item )
+		{
+			item.parentNode.removeChild( item );
+		}
+	}
+
+	/**
+	 * Gets the information panel.
+	 */
+	get informationPanel()
+	{
+		return document.getElementById( this.gameInformationQualifiedName );
+	}
+
+	/**
+	 * Gets the game message.
+	 */
+	get gameMessages()
+	{
+		return document.getElementsByClassName( this.gameMessagesQualifiedName );
+	}
+
+	/**
+	 * Gets the qualified name for the game messages.
+	 */
+	get gameMessagesQualifiedName()
+	{
+		return "game-messages";
+	}
+
+	/**
+	 * Gets the qualified name for the game information.
+	 */
+	get gameInformationQualifiedName()
+	{
+		return "game-information";
 	}
 }

@@ -14,6 +14,10 @@ class Board
 		this.__height = 0;
 	}
 
+	/**
+	 * Initializes the board to a width and height relative to that of the
+	 * client's screen dimensions.
+	 */
 	initialize()
 	{
 		const lateralConstraintRatio = 0.9;
@@ -23,7 +27,7 @@ class Board
 		const height = Math.round(
 			window.innerHeight * vericalConstraintRatio 
 			- document.getElementsByTagName("header")[0].clientHeight 
-			- document.getElementById("game-info").clientHeight	
+			- document.getElementById("game-information").clientHeight	
 			- document.getElementsByTagName("footer")[0].clientHeight );
 
 		this.__horizontalTiles = Math.round( width / Tile.size() );
@@ -33,33 +37,48 @@ class Board
 		this.__height = this.__verticalTiles * Tile.size();
 
 		const units = "px";
-		Canvas.canvas.setAttribute( "width", this.__width + units );
-		Canvas.canvas.setAttribute( "height", this.__height + units );
+		Canvas.Element.setAttribute( "width", this.__width + units );
+		Canvas.Element.setAttribute( "height", this.__height + units );
 
-		Canvas.context.fillStyle = Board.Color();
-		Canvas.context.fillRect( 0, 0, this.__width, this.__height );
+		Canvas.Context.fillStyle = Board.Color();
+		Canvas.Context.fillRect( 0, 0, this.__width, this.__height );
 	}
 
+	/**
+	 * Get horizontal tiles in dimensionless units.
+	 */
 	get horizontalTiles()
 	{
 		return this.__horizontalTiles;
 	}
 
+	/**
+	 * Get vertical tiles in dimensionless units.
+	 */
 	get verticalTiles()
 	{
 		return this.__verticalTiles;
 	}
 
+	/**
+	 * Get horizontal tiles in pixels.
+	 */
 	get width()
 	{
 		return this.__width;
 	}
 
+	/**
+	 * Get vertical tiles in pixels.
+	 */
 	get height()
 	{
 		return this.__height;
 	}
 
+	/**
+	 * Board color.
+	 */
 	static Color()
 	{
 		return "#E3E7FF";

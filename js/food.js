@@ -15,6 +15,9 @@ class Food extends Tile
 		this.__verticalRange = 0;
 	}
 
+	/**
+	 * Initializes the positional ranges of the food tile.
+	 */
 	initialize( horizontalRange, verticalRange )
 	{
 		this.__horizontalRange = horizontalRange;
@@ -31,7 +34,7 @@ class Food extends Tile
 	}
 
 	/**
-	 * Returns a coordinate within the specified range.
+	 * Returns a random coordinate within the specified positional range.
 	 */
 	__computeNormalizedPosition( range )
 	{

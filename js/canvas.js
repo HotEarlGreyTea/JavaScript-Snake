@@ -5,13 +5,19 @@
 
 class Canvas
 {
-	static get canvas()
+	/**
+	 * Gets the canvas element.
+	 */
+	static get Element()
 	{
 		return document.getElementById( "snake-canvas" );
 	}
 
-	static get context()
+	/**
+	 * Gets the canvas context.
+	 */
+	static get Context()
 	{
-		return Canvas.canvas.getContext( "2d" );
+		return Canvas.Element.getContext( "2d" );
 	}
 }

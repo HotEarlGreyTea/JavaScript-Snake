@@ -9,11 +9,18 @@ class Snake extends Tiles
 	{
 		super();
 
+		// Value used to determine by how much the snake will grow.
 		this.growthIncrement = 5;
+
+		// Value used to determine the incremental growth left during growth.
 		this.pendingGrowth = 0;
+
 		this.color = "#CE0018";
 	}
 
+	/**
+	 * Generates the snake given its initial length.
+	 */
 	generate()
 	{
 		this.initialize();
@@ -32,60 +39,59 @@ class Snake extends Tiles
 
 	/**
 	 * Moves the snake in a direction.
-	 * Checks both border collisions as well as self ones and returns true if there were none.
+	 * Checks both border and inner collisions.
 	 */
-	move( direction, boardWidth, boardHeight )
+	move( controls, boardWidth, boardHeight )
 	{
-		var LEFT = 37;
-		var UP = 38;
-		var RIGHT = 39;
-		var DOWN = 40;
+		let left = this.back.left;
+		let top = this.back.top;
 
-		var left = this.back.left;
-		var top = this.back.top;
-
-		switch(direction)
+		if ( controls.isLeft )
 		{
-			case LEFT:
-				if (left == 0)
-				{
-					return false;
-				} else
-				{
-					left -= Tile.size();
-				}
-				break;
-			case UP:
-				if (top == 0)
-				{
-					return false;
-				} else
-				{
-					top -= Tile.size();
-				}
-				break;
-			case RIGHT:
-				if (left == boardWidth - Tile.size())
-				{
-					return false;
-				} else
-				{
-					left += Tile.size();
-				}
-				break;
-			case DOWN:
-				if (top == boardHeight - Tile.size())
-				{
-					return false;
-				}
-				else
-				{
-					top += Tile.size();
-				}
-				break;
+			if ( left == 0 )
+			{
+				return false;
+			}
+			else
+			{
+				left -= Tile.size();
+			}
+		}
+		else if ( controls.isUp )
+		{
+			if ( top == 0 )
+			{
+				return false;
+			}
+			else
+			{
+				top -= Tile.size();
+			}
+		}
+		else if ( controls.isRight )
+		{
+			if ( left == boardWidth - Tile.size() )
+			{
+				return false;
+			}
+			else
+			{
+				left += Tile.size();
+			}
+		}
+		else if ( controls.isDown )
+		{
+			if ( top == boardHeight - Tile.size() )
+			{
+				return false;
+			}
+			else
+			{
+				top += Tile.size();
+			}
 		}
 
-		if (this.pendingGrowth > 0)
+		if ( this.pendingGrowth > 0 )
 		{
 			this.grow( left, top )
 		}
@@ -97,11 +103,18 @@ class Snake extends Tiles
 		return !this.collides( this.back );
 	}
 
+	/**
+	 * Checks the collision of the snake's head with the rest of its body.
+	 */
 	collides( tile )
 	{
 		return this.slice( 0, this.length - 1 ).contains( tile );
 	}
 
+	/**
+	 * Checks the collision of the snake's head with the food tile.
+	 * Increment the snake's body on collision.
+	 */
 	eats( food )
 	{
 		if ( this.back.collides( food ) )
@@ -110,12 +123,18 @@ class Snake extends Tiles
 		}
 	}
 
+	/**
+	 * Push addition tiles on the snake until its growth is over.
+	 */
 	grow( left, top )
 	{
 		this.push( left, top, this.color );
 		--this.pendingGrowth;
 	}
 
+	/**
+	 * Move the body of the snake excluding its head.
+	 */
 	moveBody( left, top )
 	{
 		this.front.color = Board.Color();
@@ -128,6 +147,9 @@ class Snake extends Tiles
 		this.back.top = top;
 	}
 
+	/**
+	 * Kills the snake.
+	 */
 	kill()
 	{
 		this.back.color = "GREY";

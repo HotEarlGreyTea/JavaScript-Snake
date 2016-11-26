@@ -32,18 +32,14 @@ footer
 	border: 2px solid black;
 }
 
-#game-message
-{
-	border-radius: 2px;
-}
-
-#game-info
+#game-information
 {
 	margin-bottom: 0.5%;
 }
 
-#game-message
+.game-messages
 {
+	border-radius: 2px;
 	color: white;
 	position: absolute;
 	left: 35%;
@@ -54,8 +50,8 @@ footer
 	background-color: #191919;
 }
 
-#game-info,
-#game-message
+#game-information,
+.game-messages
 {
 	font-weight: normal;
 }

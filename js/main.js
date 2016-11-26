@@ -55,13 +55,13 @@
 	 */
 	function update()
 	{
-		if ( logic.update( controls.currentDirection, board.width, board.height ) )
+		if ( logic.update( controls, board.width, board.height ) )
 		{
 			messages.update( logic.score );
 		}
 		else
 		{
-			messages.end( "You died! Press any key to restart." );
+			messages.end();
 		}
 	}
 } )();

@@ -13,24 +13,33 @@ class Tile
 		this.size = Tile.size();
 	}
 
+	/**
+	 * Draws the tile on the board.
+	 */
 	draw()
 	{
-		Canvas.context.fillStyle = this.color;
+		Canvas.Context.fillStyle = this.color;
 
 		const offset = 1;
-		Canvas.context.fillRect(
+		Canvas.Context.fillRect(
 			this.left + offset,
 			this.top + offset,
 			this.size - offset,
 			this.size - offset );
 	}
 
+	/**
+	 * Checks for positional equality with another tile.
+	 */
 	collides( tile )
 	{
-		return ( ( this.left == tile.left ) &&
-				 ( this.top == tile.top ) );
+		return ( this.left == tile.left ) && ( this.top == tile.top );
 	}
 
+	/**
+	 * Size of the tiles on the board. This value is inversely
+	 * proportional to the amount of tiles on the board.
+	 */
 	static size()
 	{
 		return 20;

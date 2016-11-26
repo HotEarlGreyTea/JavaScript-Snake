@@ -21,6 +21,9 @@ class Logic
 		this.__snake = new Snake();
 	}
 
+	/**
+	 * Initializes the direction.
+	 */
 	initialize( horizontalTiles, verticalTiles )
 	{
 		this.__animation.initialize();

@@ -11,6 +11,9 @@ class Animation
 		this.__initial = Date.now();
 	}
 
+	/**
+	 * Initializes the animation to a stopped state.
+	 */
 	initialize()
 	{
 		this.inanimate();
@@ -28,7 +31,7 @@ class Animation
 	}
 
 	/**
-	 * Inanimates the action effectively bringing the game to a halt.
+	 * Inanimates the action effectively bringing the game to a stop.
 	 */
 	inanimate()
 	{
@@ -44,13 +47,14 @@ class Animation
 
 		// TODO: Remove frame limiter and make animation independent of physics.
 		const framesPerSecond = 20;
-		const interval = 1000 / framesPerSecond;
+		const millisecondsPerSecond = 1000;
+		const millisecondsPerFrame = millisecondsPerSecond / framesPerSecond;
 		const now = Date.now();
 		const delta = now - this.__initial;
 
-		if ( delta > interval )
+		if ( delta > millisecondsPerFrame )
 		{
-			this.__initial = now - ( delta % interval );
+			this.__initial = now - ( delta % millisecondsPerFrame );
 
 			action();
 		}
