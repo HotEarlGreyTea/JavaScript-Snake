@@ -20,4 +20,4 @@ To play the game, download the repository to a local folder and open snake.html.
 Known Issues
 ------------------
 
-Will require a browser capable of parsing the ES6 specifications of the JavaScript language, such as Google Chrome. Moreover, the game's physics is currently tied to a fixed frame rate. In the future, this should be decoupled by having the animation be dependent on the actual physical quantities like velocity instead of frame rate.
+Will require a browser capable of parsing the ES6 specifications of the JavaScript language, such as Google Chrome. Moreover, the game's physics is currently tied to a fixed frame rate. In the future, this should be decoupled by having the animation be dependent on physical quantities such as velocity instead of frame rate.
