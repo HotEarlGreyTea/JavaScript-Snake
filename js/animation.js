@@ -9,6 +9,7 @@ class Animation
 	{
 		this.__animation = null;
 		this.__initial = Date.now();
+		this.__action = null;
 
 		this.__constrained = ( framesPerSecond > 0 );
 		
@@ -24,6 +25,7 @@ class Animation
 		this.inanimate();
 
 		this.__initial = Date.now();
+		this.__action = null;
 	}
 
 	/**
@@ -32,7 +34,8 @@ class Animation
 	 */
 	animate( action )
 	{
-		this.__request( action );
+		this.__action = action;
+		this.__request();
 	}
 
 	/**
@@ -46,24 +49,24 @@ class Animation
 	/**
 	 * Runs the actual action through the animation.
 	 */
-	__loop( action )
+	__loop()
 	{
-		this.__request( action );
+		this.__request();
 
 		if ( this.__constrained )
 		{
-			this.__constrainedLoop( action );
+			this.__constrainedLoop();
 		}
 		else
 		{
-			this.__uncontrainedLoop( action );
+			this.__uncontrainedLoop();
 		}
 	}
 
 	/**
 	 * Loop logic with a frame limiter.
 	 */
-	__constrainedLoop( action )
+	__constrainedLoop()
 	{
 		const now = Date.now();
 		const delta = now - this.__initial;
@@ -72,23 +75,23 @@ class Animation
 		{
 			this.__initial = now - ( delta % this.__millisecondsPerFrame );
 
-			this.__uncontrainedLoop( action );
+			this.__uncontrainedLoop();
 		}
 	}
 
 	/**
 	 * Loop logic without a frame limiter.
 	 */
-	__uncontrainedLoop( action )
+	__uncontrainedLoop()
 	{
-		action();
+		this.__action();
 	}
 
 	/**
 	 * Creates a request to animate the action.
 	 */
-	__request( action )
+	__request()
 	{
-		this.__animation = window.requestAnimationFrame( this.__loop.bind( this, action ) );
+		this.__animation = window.requestAnimationFrame( this.__loop.bind( this, this.__action ) );
 	}
 }
