@@ -16,7 +16,10 @@ class Logic
 
 		this.__state = this.__states.Start;
 
-		this.__animation = new Animation();
+		// TODO: Remove frame limiter and make animation independent of physics.
+		const framesPerSecond = 20;
+		this.__animation = new Animation( framesPerSecond );
+
 		this.__food = new Food();
 		this.__snake = new Snake();
 	}

@@ -5,10 +5,15 @@
  
 class Animation
 {
-	constructor()
+	constructor( framesPerSecond = 0 )
 	{
 		this.__animation = null;
 		this.__initial = Date.now();
+
+		this.__constrained = ( framesPerSecond > 0 );
+		
+		const millisecondsPerSecond = 1000;
+		this.__millisecondsPerFrame = this.__constrained ? ( millisecondsPerSecond / framesPerSecond ) : 0;
 	}
 
 	/**
@@ -45,19 +50,38 @@ class Animation
 	{
 		this.__request( action );
 
-		// TODO: Remove frame limiter and make animation independent of physics.
-		const framesPerSecond = 20;
-		const millisecondsPerSecond = 1000;
-		const millisecondsPerFrame = millisecondsPerSecond / framesPerSecond;
+		if ( this.__constrained )
+		{
+			this.__constrainedLoop( action );
+		}
+		else
+		{
+			this.__uncontrainedLoop( action );
+		}
+	}
+
+	/**
+	 * Loop logic with a frame limiter.
+	 */
+	__constrainedLoop( action )
+	{
 		const now = Date.now();
 		const delta = now - this.__initial;
 
-		if ( delta > millisecondsPerFrame )
+		if ( delta > this.__millisecondsPerFrame )
 		{
-			this.__initial = now - ( delta % millisecondsPerFrame );
+			this.__initial = now - ( delta % this.__millisecondsPerFrame );
 
-			action();
+			this.__uncontrainedLoop( action );
 		}
+	}
+
+	/**
+	 * Loop logic without a frame limiter.
+	 */
+	__uncontrainedLoop( action )
+	{
+		action();
 	}
 
 	/**
