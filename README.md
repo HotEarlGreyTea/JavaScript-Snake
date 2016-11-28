@@ -20,4 +20,6 @@ To play the game, download the repository to a local folder and open snake.html.
 Known Issues
 ------------------
 
-Will require a browser capable of parsing the ES6 specifications of the JavaScript language, such as Google Chrome. Moreover, the game's physics is currently tied to a fixed frame rate. In the future, this should be decoupled by having the animation be dependent on physical quantities such as velocity instead of frame rate.
+Will require a browser capable of parsing the ES6 specifications of the JavaScript language, such as Google Chrome.
+
+There is subtle glitch in which the player can move the snake in the direct opposite direction instead of orthogonal directions. This requires pressing multiple directions at a faster rate than that which the game runs. When I have time, I can add a simple keystopper variable.
