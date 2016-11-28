@@ -7,9 +7,14 @@ class Food extends Tile
 {
 	constructor()
 	{
+		const coordinate =
+		{
+			x: 0,
+			y: 0
+		};
 		const foodColor = "#FFA200";
 
-		super( 0, 0, foodColor );
+		super( coordinate, foodColor );
 
 		this.__horizontalRange = 0;
 		this.__verticalRange = 0;
@@ -29,8 +34,8 @@ class Food extends Tile
 	 */
 	generate()
 	{
-		this.left = this.__computeNormalizedPosition( this.__horizontalRange );
-		this.top = this.__computeNormalizedPosition( this.__verticalRange );
+		this.coordinate.x = this.__computeNormalizedPosition( this.__horizontalRange );
+		this.coordinate.y = this.__computeNormalizedPosition( this.__verticalRange );
 	}
 
 	/**

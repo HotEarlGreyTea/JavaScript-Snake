@@ -21,9 +21,9 @@ class Tiles
 	/**
 	 * Pushes a new tile into the collection of tiles.
 	 */
-	push( left, top, color )
+	push( coordinate, color )
 	{
-		this.__tiles.push( new Tile( left, top, color ) );
+		this.__tiles.push( new Tile( coordinate, color ) );
 	}
 
 	/**

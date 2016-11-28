@@ -30,11 +30,11 @@ class Board
 			- document.getElementById("game-information").clientHeight	
 			- document.getElementsByTagName("footer")[0].clientHeight );
 
-		this.__horizontalTiles = Math.round( width / Tile.size() );
-		this.__verticalTiles = Math.round( height / Tile.size() );
+		this.__horizontalTiles = Board.ComputeTileCountFromSpan( width );
+		this.__verticalTiles = Board.ComputeTileCountFromSpan( height );
 
-		this.__width = this.__horizontalTiles * Tile.size();
-		this.__height = this.__verticalTiles * Tile.size();
+		this.__width = Board.ComputeSpanFromTileCount( this.__horizontalTiles );
+		this.__height = Board.ComputeSpanFromTileCount( this.__verticalTiles );
 
 		const units = "px";
 		Canvas.Element.setAttribute( "width", this.__width + units );
@@ -74,6 +74,16 @@ class Board
 	get height()
 	{
 		return this.__height;
+	}
+
+	static ComputeTileCountFromSpan( span )
+	{
+		return Math.round( span / Tile.size() );
+	}
+
+	static ComputeSpanFromTileCount( count )
+	{
+		return count * Tile.size();
 	}
 
 	/**

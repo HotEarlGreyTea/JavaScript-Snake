@@ -63,37 +63,6 @@ class Messages
 	}
 
 	/**
-	 * Creates the score panel.
-	 */
-	__createInformationPanel()
-	{
-		const gameInfo = document.getElementById( this.gameInformationQualifiedName );
-		const lengthInfo = document.createElement( "span" );
-
-		this.__updateInformationPanel( lengthInfo );
-		gameInfo.appendChild( lengthInfo );
-	}
-
-	/**
-	 * Updates the score panel.
-	 */
-	__updateInformationPanel( panel )
-	{
-		panel.innerHTML = "Snake length: " + this.__score;
-	}
-
-	/**
-	 * Removes an element from the DOM.
-	 */
-	__removeItem( item )
-	{
-		if ( item )
-		{
-			item.parentNode.removeChild( item );
-		}
-	}
-
-	/**
 	 * Gets the information panel.
 	 */
 	get informationPanel()
@@ -123,5 +92,36 @@ class Messages
 	get gameInformationQualifiedName()
 	{
 		return "game-information";
+	}
+
+	/**
+	 * Creates the score panel.
+	 */
+	__createInformationPanel()
+	{
+		const gameInfo = document.getElementById( this.gameInformationQualifiedName );
+		const lengthInfo = document.createElement( "span" );
+
+		this.__updateInformationPanel( lengthInfo );
+		gameInfo.appendChild( lengthInfo );
+	}
+
+	/**
+	 * Updates the score panel.
+	 */
+	__updateInformationPanel( panel )
+	{
+		panel.innerHTML = "Snake length: " + this.__score;
+	}
+
+	/**
+	 * Removes an element from the DOM.
+	 */
+	__removeItem( item )
+	{
+		if ( item )
+		{
+			item.parentNode.removeChild( item );
+		}
 	}
 }

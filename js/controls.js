@@ -57,17 +57,9 @@ class Controls
 	}
 
 	/**
-	 * Gets the current direction of the snake's head.
-	 */
-	get currentDirection()
-	{
-		return this.__currentDirection;
-	}
-
-	/**
 	 * Determines if the current direction is leftwards facing.
 	 */
-	get isLeft()
+	isLeft()
 	{
 		return this.__directions.Left == this.currentDirection;
 	}
@@ -75,7 +67,7 @@ class Controls
 	/**
 	 * Determines if the current direction is upwards facing.
 	 */
-	get isUp()
+	isUp()
 	{
 		return this.__directions.Up == this.currentDirection;
 	}
@@ -83,7 +75,7 @@ class Controls
 	/**
 	 * Determines if the current direction is rightwards facing.
 	 */
-	get isRight()
+	isRight()
 	{
 		return this.__directions.Right == this.currentDirection;
 	}
@@ -91,8 +83,16 @@ class Controls
 	/**
 	 * Determines if the current direction is downwards facing.
 	 */
-	get isDown()
+	isDown()
 	{
 		return this.__directions.Down == this.currentDirection;
+	}
+
+	/**
+	 * Gets the current direction of the snake's head.
+	 */
+	get currentDirection()
+	{
+		return this.__currentDirection;
 	}
 }

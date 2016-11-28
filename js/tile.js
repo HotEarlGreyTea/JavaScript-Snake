@@ -5,10 +5,9 @@
 
 class Tile
 {
-	constructor( left, top, color )
+	constructor( coordinate, color )
 	{
-		this.left = left;
-		this.top = top;
+		this.coordinate = coordinate;
 		this.color = color;
 		this.size = Tile.size();
 	}
@@ -22,8 +21,8 @@ class Tile
 
 		const offset = 1;
 		Canvas.Context.fillRect(
-			this.left + offset,
-			this.top + offset,
+			this.coordinate.x + offset,
+			this.coordinate.y + offset,
 			this.size - offset,
 			this.size - offset );
 	}
@@ -33,7 +32,7 @@ class Tile
 	 */
 	collides( tile )
 	{
-		return ( this.left == tile.left ) && ( this.top == tile.top );
+		return ( this.coordinate.x == tile.coordinate.x ) && ( this.coordinate.y == tile.coordinate.y );
 	}
 
 	/**
