@@ -15,7 +15,7 @@ updated: `2016-11-27`
 Demo
 ------------------
 
-To play the game, download the repository to a local folder and open snake.html.
+To play the game, visit: http://danielil.github.io/JavaScript-Snake.
 
 Requirements
 ------------------
