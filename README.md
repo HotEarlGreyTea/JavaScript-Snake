@@ -1,4 +1,4 @@
-JavaScript-Snake
+Snake
 ================
 
 A JavaScript implementation of the classic Snake game.
@@ -15,7 +15,7 @@ updated: `2016-11-27`
 Demo
 ------------------
 
-To play the game, visit: http://danielil.github.io/JavaScript-Snake.
+To play the game, visit: https://danielil.github.io/Snake/snake.html.
 
 Requirements
 ------------------
